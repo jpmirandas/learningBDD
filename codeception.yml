@@ -1,31 +1,35 @@
-# suite config
-suites:
-    acceptance:
-        actor: AcceptanceTester
-        path: .
-        modules:
-            enabled:
-                - WebDriver:
-                    url: http://localhost
-                    browser: chrome
-                - \Helper\Acceptance
-                
-extensions:
-    enabled: [Codeception\Extension\RunFailed]
-
-params: 
-    - env
-
-gherkin: []    
-
-# additional paths
+actor: Tester
 paths:
     tests: tests
-    output: tests/_output
+    log: tests/_output
     data: tests/_data
     support: tests/_support
     envs: tests/_envs
-
 settings:
-    shuffle: false
-    lint: true
+    bootstrap: _bootstrap.php
+    colors: true
+    memory_limit: 1024M
+extensions:
+    enabled:
+        - Codeception\Extension\RunFailed
+        - Codeception\Extension\Recorder
+        - Codeception\Extension\Phantoman
+    config:
+          Codeception\Extension\Recorder:
+            delete_successful: false
+          Codeception\Extension\Phantoman:
+            path: '/usr/local/bin/phantomjs'
+            suites: ['acceptance']
+modules:
+    config:
+        Db:
+            dsn: ''
+            user: ''
+            password: ''
+            dump: tests/_data/dump.sql
+
+gherkin:
+    contexts:
+        default:
+            - AcceptanceTester
+            - Step\Acceptance\UserActions

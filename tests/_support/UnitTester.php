@@ -16,22 +16,11 @@
  *
  * @SuppressWarnings(PHPMD)
 */
-class AcceptanceTester extends \Codeception\Actor {
-    use _generated\AcceptanceTesterActions;
+class UnitTester extends \Codeception\Actor
+{
+    use _generated\UnitTesterActions;
 
-    /**
-     * @When The loading is completed
-     */
-    public function theLoadingIsCompleted() {
-        $I = $this;
-        echo "...." . PHP_EOL;
-    }
-
-    /**
-     * @Then Verify if the title is :title
-     */
-    public function verifyIfTheTitleIs($title) {
-        $I = $this;
-        $I->seeInTitle($title);
-    }
+   /**
+    * Define custom actions here
+    */
 }
